@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { Scene } from 'three';
 
 //동적으로 캔버스 조립하기
 // const renderer = new THREE.WebGL1Renderer();
@@ -9,8 +8,8 @@ import { Scene } from 'three';
 // console.log(renderer.domElement);
 // document.body.appendChild(renderer.domElement);
 
-const canvas = document.getElementById('#three-canvas');
-const renderer = new THREE.WebGL1Renderer({ canvas }); //canvas라는 값을 canvas로 가져오는것
+const canvas = document.querySelector('#three-canvas');
+const renderer = new THREE.WebGL1Renderer({ canvas, antialias: true }); //canvas라는 값을 canvas로 가져오는것
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 //Scene
@@ -24,4 +23,25 @@ const camera = new THREE.PerspectiveCamera(
   0.1, // near
   1000 //far
 );
-scene.add(carmera);
+//카메라와 object가 같은위치면 보이지않으니 뒤로 약간 빼주는 작업을 해야한다.
+camera.position.x = 1;
+camera.position.y = 2;
+camera.position.z = 5; //5정도 거리로 뒤로 빼주는것 + 방향으로
+scene.add(camera);
+
+//mesh
+
+const geometry = new THREE.BoxGeometry(1, 1, 1); //직육면체geometry 박스를 하나만든다
+const material = new THREE.MeshBasicMaterial({
+  // color: oxff0000
+  // color: '#ff0000'
+  color: 'red',
+});
+
+const mesh = new THREE.Mesh(geometry, material);
+scene.add(mesh); //씬에 올려주기
+
+//그리기
+//렌더러가 렌더를 해줘야지 우리눈에보인다.
+
+renderer.render(scene, camera);
