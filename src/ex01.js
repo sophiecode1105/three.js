@@ -10,8 +10,8 @@ import * as THREE from 'three';
 
 const example = () => {
   const canvas = document.querySelector('#three-canvas');
-  const renderer = new THREE.WebGL1Renderer({ canvas, antialias: true }); //canvas라는 값을 canvas로 가져오는것
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  const renderer = new THREE.WebGL1Renderer({ canvas, antialias: true }); //canvas라는 값을 canvas로 가져오는것, antialias 성능저하 떨어지고 부드럽게해줌
+  renderer.setSize(window.innerWidth, window.innerHeight); //브라우저 창크기로 맞춘것
 
   //Scene
 
@@ -20,7 +20,7 @@ const example = () => {
   //Camera
   // const camera = new THREE.PerspectiveCamera(
   //   75, //시야각 field of view
-  //   window.innerWidth / window.innerHeight, //aspec
+  //   window.innerWidth / window.innerHeight, //aspec 종횡비
   //   0.1, // near
   //   1000 //far
   // );
@@ -49,7 +49,7 @@ const example = () => {
 
   //mesh
 
-  const geometry = new THREE.BoxGeometry(1, 1, 1); //직육면체geometry 박스를 하나만든다
+  const geometry = new THREE.BoxGeometry(1, 1, 1); //직육면체  geometry 박스를 하나만든다
   const material = new THREE.MeshBasicMaterial({
     // color: oxff0000
     // color: '#ff0000'
