@@ -58,13 +58,25 @@ const example = () => {
     color: 'red',
   });
 
+  const draw = () => {
+    //각도는 radian을 사용한다.
+    //360도는 2파이
+    //mesh.rotation.y += 0.1;
+    // mesh.rotation.y += 0.1;
+
+    //얘는 1도씩 돌리는거
+    mesh.rotation.y += THREE.MathUtils.degToRad(1);
+    renderer.render(scene, camera);
+
+    window.requestAnimationFrame(draw);
+    //renderer.setAnimationLoop(draw) => vr/ar 할때 써야한다.
+  };
+
   const mesh = new THREE.Mesh(geometry, material);
   scene.add(mesh); //씬에 올려주기
 
   //그리기
   //렌더러가 렌더를 해줘야지 우리눈에보인다.
-
-  renderer.render(scene, camera);
 
   const setSize = () => {
     //CAMERA
@@ -77,6 +89,7 @@ const example = () => {
 
   //이벤트
   window.addEventListener('resize', setSize);
+  draw();
 };
 
 export default example;
