@@ -67,11 +67,12 @@ const example = () => {
 
     //얘는 1도씩 돌리는거
 
-    const time = clock.getElapsedTime();
+    // const time = clock.getElapsedTime();
+    const delta = clock.getDelta();
 
-    mesh.rotation.y = 2 * time;
+    mesh.rotation.y += 2 * delta;
     // mesh.rotation.y += THREE.MathUtils.degToRad(1);
-    mesh.position.y = time;
+    mesh.position.y += delta;
     renderer.render(scene, camera);
 
     window.requestAnimationFrame(draw);

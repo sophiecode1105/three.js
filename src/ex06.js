@@ -58,8 +58,12 @@ const example = () => {
     color: 'red',
   });
 
+  let oldTime = Date.now();
   const clock = new THREE.Clock();
   const draw = () => {
+    const newTime = Date.now();
+    const deltaTime = newTime - oldTime;
+    oldTime = newTime;
     //각도는 radian을 사용한다.
     //360도는 2파이
     //mesh.rotation.y += 0.1;
@@ -67,11 +71,12 @@ const example = () => {
 
     //얘는 1도씩 돌리는거
 
-    const time = clock.getElapsedTime();
+    // const time = clock.getElapsedTime();
+    // const delta = clock.getDelta();
 
-    mesh.rotation.y = 2 * time;
+    mesh.rotation.y += 0.005 * deltaTime;
     // mesh.rotation.y += THREE.MathUtils.degToRad(1);
-    mesh.position.y = time;
+    mesh.position.y += 0.001 * deltaTime;
     renderer.render(scene, camera);
 
     window.requestAnimationFrame(draw);
