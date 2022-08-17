@@ -12,6 +12,8 @@ const example = () => {
   const canvas = document.querySelector('#three-canvas');
   const renderer = new THREE.WebGL1Renderer({ canvas, antialias: true }); //canvas라는 값을 canvas로 가져오는것, antialias 성능저하 떨어지고 부드럽게해줌
   renderer.setSize(window.innerWidth, window.innerHeight); //브라우저 창크기로 맞춘것
+  console.log('pixelratio', window.devicePixelRatio);
+  renderer.setPixelRatio(window.devicePixelRatio > 1 ? 2 : 1); //고밀도 이미지로 보이게해준다.
 
   //Scene
 
@@ -63,6 +65,18 @@ const example = () => {
   //렌더러가 렌더를 해줘야지 우리눈에보인다.
 
   renderer.render(scene, camera);
+
+  const setSize = () => {
+    //CAMERA
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.render(scene, camera);
+    console.log('size check');
+  };
+
+  //이벤트
+  window.addEventListener('resize', setSize);
 };
 
 export default example;
